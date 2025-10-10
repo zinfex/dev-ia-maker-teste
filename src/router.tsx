@@ -17,60 +17,56 @@ function Protected({ children }:{ children: JSX.Element }){
 
 export const router = createBrowserRouter([
     {
-    path: '/',
-    element: (
-        <QueryClientProvider client={qc}>
-            <Layout>
-                <></>
-            </Layout>
-        </QueryClientProvider>
-    ),
-    children: []
+        path: '/',
+        element: (
+            <QueryClientProvider client={qc}>
+                <Layout><></></Layout>
+            </QueryClientProvider>
+        ),
+        children: []
     },
     {
-    path: '/login',
-    element: (
-        <QueryClientProvider client={qc}>
-            <Layout>
-                <LoginPage />
-            </Layout>
-        </QueryClientProvider>
-    )
-    },
-    {
-    path: '/messages',
-    element: (
-        <QueryClientProvider client={qc}>
-            <Layout>
-                <Protected>
-                    <MessagesListPage />
-                </Protected>
-            </Layout>
-        </QueryClientProvider>
+        path: '/login',
+        element: (
+            <QueryClientProvider client={qc}>
+                <Layout><LoginPage /></Layout>
+            </QueryClientProvider>
         )
     },
     {
-    path: '/messages/new',
-    element: (
-        <QueryClientProvider client={qc}>
-            <Layout>
-                <Protected>
-                    <MessageFormPage />
-                </Protected>
-            </Layout>
-        </QueryClientProvider>
-    )
+        path: '/messages',
+        element: (
+            <QueryClientProvider client={qc}>
+                <Layout>
+                    <Protected>
+                        <MessagesListPage />
+                    </Protected>
+                </Layout>
+            </QueryClientProvider>
+        )
     },
     {
-    path: '/messages/:id',
-    element: (
-        <QueryClientProvider client={qc}>
-            <Layout>
-                <Protected>
-                    <MessageDetailPage />
-                </Protected>
-            </Layout>
-        </QueryClientProvider>
-    )
+        path: '/messages/new',
+        element: (
+            <QueryClientProvider client={qc}>
+                <Layout>
+                    <Protected>
+                        <MessageFormPage />
+                    </Protected>
+                </Layout>
+            </QueryClientProvider>
+        )
+    },
+    {
+        path: '/messages/:id',
+        element: (
+            <QueryClientProvider client={qc}>
+                <Layout>
+                    <Protected>
+                        <MessageDetailPage />
+                    </Protected>
+                </Layout>
+            </QueryClientProvider>
+        )
     },
 ]);

@@ -6,23 +6,21 @@ import { MemoryRouter } from 'react-router-dom';
 
 const mutateAsync = jest.fn().mockResolvedValue({ id: '123' });
 
-
 jest.mock('../src/api/hooks', () => ({
-useMessage: () => ({ data: null, isLoading: false }),
-useCreateMessage: () => ({ mutateAsync, error: null }),
-useUpdateMessage: () => ({ mutateAsync, error: null })
+    useMessage: () => ({ data: null, isLoading: false }),
+    useCreateMessage: () => ({ mutateAsync, error: null }),
+    useUpdateMessage: () => ({ mutateAsync, error: null })
 }));
 
 test('cria mensagem ao enviar formulário', async () => {
     const qc = new QueryClient();
     const { getByLabelText, getByText } = render(
         <QueryClientProvider client={qc}>
-        <MemoryRouter>
-            <MessageFormPage />
-        </MemoryRouter>
+            <MemoryRouter>
+                <MessageFormPage />
+            </MemoryRouter>
         </QueryClientProvider>
     );
-    
     
     const titleInput = getByLabelText('Título');
     const contentInput = getByLabelText('Conteúdo');
@@ -39,7 +37,6 @@ test('cria mensagem ao enviar formulário', async () => {
     statusSelect.dispatchEvent(new Event('change', { bubbles: true }));
     
     submitButton.click();
-    
     
     await new Promise(resolve => setTimeout(resolve, 100));
     expect(mutateAsync).toHaveBeenCalled();

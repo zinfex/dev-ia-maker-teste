@@ -43,7 +43,6 @@ export const api = {
     login: (body: { username: string; password: string }) =>
     apiFetch<LoginResponse>('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
 
-
     listMessages: (q: { page?: number; limit?: number; status?: string }) => {
         const params = new URLSearchParams();
         if (q.page) params.set('page', String(q.page));

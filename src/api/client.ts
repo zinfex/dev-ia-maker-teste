@@ -2,7 +2,7 @@ import { getToken, clearToken } from '../utils/auth';
 import { parseProblem } from '../utils/error';
 import type { Message, Paginated } from '../types/message';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5678/api';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
     const headers: Record<string, string> = {
@@ -51,11 +51,11 @@ export const api = {
         return apiFetch<Paginated<Message>>('/messages?' + params.toString());
     },
 
-    getMessage: (id: string) => apiFetch<Message>(`/messages/${id}`),
+    getMessage: (id: string) => apiFetch<Message>(`/e06ba731-75db-4e9e-b5e6-36a6fccdc7bf/messages/${id}`),
 
-    createMessage: (body: unknown) => apiFetch<Message>('/messages', { method: 'POST', body: JSON.stringify(body) }),
+    createMessage: (body: unknown) => apiFetch<Message>('/e06ba731-75db-4e9e-b5e6-36a6fccdc7bf/messages', { method: 'POST', body: JSON.stringify(body) }),
 
-    updateMessage: (id: string, body: unknown, partial?: boolean) => apiFetch<Message>(`/messages/${id}`, { method: partial ? 'PATCH' : 'PUT', body: JSON.stringify(body) }),
+    updateMessage: (id: string, body: unknown, partial?: boolean) => apiFetch<Message>(`/e06ba731-75db-4e9e-b5e6-36a6fccdc7bf/messages/${id}`, { method: partial ? 'PATCH' : 'PUT', body: JSON.stringify(body) }),
 
-    deleteMessage: (id: string) => apiFetch<void>(`/messages/${id}`, { method: 'DELETE' }),
+    deleteMessage: (id: string) => apiFetch<void>(`/messages?id=${id}`, { method: 'DELETE' }),
 };

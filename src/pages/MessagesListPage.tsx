@@ -56,14 +56,14 @@ export default function MessagesListPage(){
             </tr>
             </thead>
             <tbody>
-                {data?.data?.map(m => (
+                {data?.map((m) => (
                     <tr key={m.id} style={{ borderBottom: '1px solid #f0f0f0' }}>
                     <td><Link to={`/messages/${m.id}`}>{m.title}</Link></td>
                     <td>{m.status}</td>
                     <td>{new Date(m.created_at).toLocaleString()}</td>
                     <td style={{ textAlign:'right' }}>
-                    <button onClick={()=>nav(`/messages/${m.id}/edit`)}>Editar</button>{' '}
-                    <button onClick={()=>setToDelete(m.id)} style={{ color:'#e00' }}>Excluir</button>
+                        <button onClick={()=>nav(`/messages/${m.id}/edit`)}>Editar</button>{' '}
+                        <button onClick={()=>setToDelete(m.id)} style={{ color:'#e00' }}>Excluir</button>
                     </td>
                     </tr>
                 ))}

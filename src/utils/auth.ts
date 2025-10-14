@@ -1,4 +1,4 @@
-const TOKEN_KEY = import.meta.env.VITE_JWT_STORAGE_KEY || 'crud_msgs_token';
+const TOKEN_KEY = 'crud_msgs_token';
 
 
 export const getToken = () => localStorage.getItem(TOKEN_KEY);

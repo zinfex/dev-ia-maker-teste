@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import ErrorAlert from '../src/components/ErrorAlert';
 import type { ProblemDetails } from '../src/types/problem';

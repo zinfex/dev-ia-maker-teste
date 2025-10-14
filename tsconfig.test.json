@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "types": ["jest", "@testing-library/jest-dom", "vite/client", "node"],
+    "noEmit": true,
+    "module": "ESNext",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src",
+    "tests"
+  ]
+}

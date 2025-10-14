@@ -1,8 +1,9 @@
 import { getToken, clearToken } from '../utils/auth';
 import { parseProblem } from '../utils/error';
 import type { Message, Paginated } from '../types/message';
+import { API_CONFIG } from '../config/api';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = API_CONFIG.BASE_URL;
 
 export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
     const headers: Record<string, string> = {

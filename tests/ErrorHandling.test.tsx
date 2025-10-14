@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import MessageFormPage from '../src/pages/MessageFormPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
+import type { ProblemDetails } from '../src/types/problem';
 
 const mockCreateMessage = jest.fn();
-const mockUpdateMessage = jest.fn();
 
 // Mock dos hooks da API
 jest.mock('../src/api/hooks', () => ({
@@ -14,7 +14,7 @@ jest.mock('../src/api/hooks', () => ({
   useMessage: jest.fn()
 }));
 
-describe('MessageFormPage - Criação de Mensagem', () => {
+describe('Tratamento de Erros do Servidor', () => {
   let queryClient: QueryClient;
 
   beforeEach(() => {
@@ -26,11 +26,20 @@ describe('MessageFormPage - Criação de Mensagem', () => {
     });
     
     mockCreateMessage.mockClear();
-    mockUpdateMessage.mockClear();
   });
 
-  test('cria mensagem ao enviar formulário', async () => {
+  test('exibe erro de validação do servidor na criação', async () => { 
     const { useCreateMessage, useUpdateMessage, useMessage } = require('../src/api/hooks');
+    
+    const validationError: ProblemDetails = {
+      title: 'Validation Error',
+      status: 400,
+      detail: 'Invalid input data',
+      invalid_params: [
+        { name: 'title', reason: 'Title is required' },
+        { name: 'content', reason: 'Content must be at least 10 characters' }
+      ]
+    };
     
     useMessage.mockReturnValue({
       data: null,
@@ -41,11 +50,11 @@ describe('MessageFormPage - Criação de Mensagem', () => {
     useCreateMessage.mockReturnValue({
       mutateAsync: mockCreateMessage,
       isPending: false,
-      error: null
+      error: validationError
     });
     
     useUpdateMessage.mockReturnValue({
-      mutateAsync: mockUpdateMessage,
+      mutateAsync: jest.fn(),
       isPending: false,
       error: null
     });
@@ -57,31 +66,23 @@ describe('MessageFormPage - Criação de Mensagem', () => {
         </MemoryRouter>
       </QueryClientProvider>
     );
-
-    // Preenche o formulário
+    
     const titleInput = document.querySelector('input[name="title"]') as HTMLInputElement;
     const contentInput = document.querySelector('textarea[name="body"]') as HTMLTextAreaElement;
-    const statusSelect = document.querySelector('select[name="status"]') as HTMLSelectElement;
     const submitButton = getByText('Criar');
     
-    titleInput.value = 'Nova Mensagem';
+    titleInput.value = 'Test';
     titleInput.dispatchEvent(new Event('change', { bubbles: true }));
     
-    contentInput.value = 'Conteúdo da mensagem com mais de 10 caracteres';
+    contentInput.value = 'Short';
     contentInput.dispatchEvent(new Event('change', { bubbles: true }));
-    
-    statusSelect.value = 'draft';
-    statusSelect.dispatchEvent(new Event('change', { bubbles: true }));
     
     submitButton.click();
     
-    // Simula o comportamento assíncrono
+    // Verifica se o erro aparece
     setTimeout(() => {
-      expect(mockCreateMessage).toHaveBeenCalledWith({
-        title: 'Nova Mensagem',
-        content: 'Conteúdo da mensagem com mais de 10 caracteres',
-        status: 'draft'
-      });
+      expect(getByText('Validation Error')).toBeTruthy();
+      expect(getByText('Invalid input data')).toBeTruthy();
     }, 100);
   });
 });

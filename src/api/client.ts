@@ -50,12 +50,12 @@ export const api = {
         if (q.status) params.set('status', q.status);
         return apiFetch<Paginated<Message>>('/messages?' + params.toString());
     },
-
-    getMessage: (id: string) => apiFetch<Message>(`/e06ba731-75db-4e9e-b5e6-36a6fccdc7bf/messages/${id}`),
-
-    createMessage: (body: unknown) => apiFetch<Message>('/e06ba731-75db-4e9e-b5e6-36a6fccdc7bf/messages', { method: 'POST', body: JSON.stringify(body) }),
-
-    updateMessage: (id: string, body: unknown, partial?: boolean) => apiFetch<Message>(`/e06ba731-75db-4e9e-b5e6-36a6fccdc7bf/messages/${id}`, { method: partial ? 'PATCH' : 'PUT', body: JSON.stringify(body) }),
+    
+    getMessage: (id: string) => apiFetch<Message>(`/messages?id=${id}`),
+    
+    createMessage: (body: unknown) => apiFetch<Message>('/messages', { method: 'POST', body: JSON.stringify(body) }),
+    
+    updateMessage: (id: string, body: unknown, partial?: boolean) => apiFetch<Message>(`/messages?id=${id}`, { method: partial ? 'PATCH' : 'PUT', body: JSON.stringify(body) }),
 
     deleteMessage: (id: string) => apiFetch<void>(`/messages?id=${id}`, { method: 'DELETE' }),
 };

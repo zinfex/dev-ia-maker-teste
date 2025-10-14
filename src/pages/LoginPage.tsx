@@ -25,7 +25,7 @@ async function onSubmit(values: FormData) {
 }
 
 return (
-    <div className="login-container">
+    <div className="login-container fade-in">
         <h2 style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><BiUser /> Login</h2>
 
         <ErrorAlert problem={(login.error as ProblemDetails) ?? null} />

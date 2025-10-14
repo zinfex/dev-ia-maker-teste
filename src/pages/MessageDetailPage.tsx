@@ -7,9 +7,11 @@ import type { ProblemDetails } from '../types/problem';
 export default function MessageDetailPage(){
     const { id = '' } = useParams();
     const { data, isLoading, error } = useMessage(id);
+    
     if (isLoading) return <Loader/>;
+    
     return (
-        <div className="detail-container">
+        <div className="detail-container fade-in">
             <h2>Detalhe</h2>
 
             <ErrorAlert problem={error as ProblemDetails | null} />
@@ -22,7 +24,9 @@ export default function MessageDetailPage(){
                 </small>
                 <p className="detail-body">{data.body}</p>
                 <div className="detail-actions">
-                    <Link className="btn-edit" to={`/messages/${data.id}/edit`}>Editar</Link>
+                    <Link className="btn-edit" to={`/messages/${data.id}/edit`}>
+                        Editar
+                    </Link>
                 </div>
                 </article>
             )}

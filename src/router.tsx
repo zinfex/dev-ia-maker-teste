@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import MessagesListPage from './pages/MessagesListPage';
 import MessageDetailPage from './pages/MessageDetailPage';
 import MessageFormPage from './pages/MessageFormPage';
+import EditMessagePage from './pages/EditMessagePage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { getToken } from './utils/auth';
 
@@ -64,6 +65,18 @@ export const router = createBrowserRouter([
                 <Layout>
                     <Protected>
                         <MessageDetailPage />
+                    </Protected>
+                </Layout>
+            </QueryClientProvider>
+        )
+    },
+    {
+        path: '/messages/:id/edit',
+        element: (
+            <QueryClientProvider client={qc}>
+                <Layout>
+                    <Protected>
+                        <EditMessagePage />
                     </Protected>
                 </Layout>
             </QueryClientProvider>

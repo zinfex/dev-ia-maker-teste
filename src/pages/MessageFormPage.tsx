@@ -53,31 +53,35 @@ export default function MessageFormPage(){
 
 
     return (
-        <div style={{ maxWidth: 640 }}>
+        <div className="message-form-container">
             <h2>{isEdit ? 'Editar mensagem' : 'Nova mensagem'}</h2>
+
             <ErrorAlert problem={problem} />
 
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label>Título</label>
-                    <input {...register('title')} />
-                    {errors.title && <small style={{ color:'crimson' }}>{errors.title.message}</small>}
+                <div className="form-group">
+                <label>Título</label>
+                <input {...register('title')} />
+                {errors.title && <small className="error">{errors.title.message}</small>}
                 </div>
-                <div>
-                    <label>Conteúdo</label>
-                    <textarea rows={6} {...register('body')} />
-                    {errors.body && <small style={{ color:'crimson' }}>{errors.body.message}</small>}
+
+                <div className="form-group">
+                <label>Conteúdo</label>
+                <textarea rows={6} {...register('body')} />
+                {errors.body && <small className="error">{errors.body.message}</small>}
                 </div>
-                <div>
-                    <label>Status</label>
-                    <select {...register('status')}>
+
+                <div className="form-group">
+                <label>Status</label>
+                <select {...register('status')}>
                     <option value="draft">Rascunho</option>
                     <option value="published">Publicado</option>
-                    </select>
+                </select>
                 </div>
-                <div style={{ marginTop: 12, display:'flex', gap:8 }}>
-                    <button type="submit">{isEdit ? 'Salvar' : 'Criar'}</button>
-                    <button type="button" onClick={()=>navigate(-1)}>Cancelar</button>
+
+                <div className="form-actions">
+                <button type="submit" className="btn-primary">{isEdit ? 'Salvar' : 'Criar'}</button>
+                <button type="button" className="btn-secondary" onClick={() => navigate(-1)}>Cancelar</button>
                 </div>
             </form>
         </div>

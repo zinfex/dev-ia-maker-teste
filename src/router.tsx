@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
         path: '/login',
         element: (
             <QueryClientProvider client={qc}>
-                <Layout><LoginPage /></Layout>
+               <LoginPage />
             </QueryClientProvider>
         )
     },

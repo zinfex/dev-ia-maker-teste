@@ -9,17 +9,21 @@ export default function MessageDetailPage(){
     const { data, isLoading, error } = useMessage(id);
     if (isLoading) return <Loader/>;
     return (
-        <div>
+        <div className="detail-container">
             <h2>Detalhe</h2>
+
             <ErrorAlert problem={error as ProblemDetails | null} />
+
             {data && (
-                <article>
-                    <h3>{data.title}</h3>
-                    <small>Status: {data.status} | Atualizado: {new Date(data.updated_at).toLocaleString()}</small>
-                    <p style={{ whiteSpace:'pre-wrap', marginTop: 12 }}>{data.body}</p>
-                    <div style={{ marginTop: 16 }}>
-                        <Link to={`/messages/${data.id}/edit`}>Editar</Link>
-                    </div>
+                <article className="detail-article">
+                <h3>{data.title}</h3>
+                <small className="detail-meta">
+                    Status: {data.status} | Atualizado: {new Date(data.updated_at).toLocaleString()}
+                </small>
+                <p className="detail-body">{data.body}</p>
+                <div className="detail-actions">
+                    <Link className="btn-edit" to={`/messages/${data.id}/edit`}>Editar</Link>
+                </div>
                 </article>
             )}
         </div>

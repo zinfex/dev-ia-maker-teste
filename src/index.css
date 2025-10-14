@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -5,7 +10,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #f7f7f7;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -26,8 +31,8 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
+  justify-content: center;
 }
 
 h1 {
@@ -66,3 +71,345 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+header nav a{
+  background-color:#1a1a1a;
+  color: white;
+  font-size: 1em;
+  border-radius: 10px;
+  padding: 0.6em 1.2em;
+  transition: 200ms ease-in-out;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+header nav a:hover {
+  color: #bdbdbd;
+}
+
+/* Container principal */
+.messages-container {
+  max-width: 900px;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* Cabeçalho com título e botão */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+
+
+/* Filtro de status */
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter select {
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  color: black;
+}
+
+/* Tabela */
+.messages-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.messages-table th,
+.messages-table td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.messages-table thead tr {
+  border-bottom: 2px solid #ddd;
+}
+
+.messages-table tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.messages-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.messages-table td.actions {
+  text-align: right;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  transition: background-color 0.2s;
+}
+
+.btn-edit {
+  background-color: #357ab8;
+}
+
+.btn-edit:hover {
+  background-color: #0088ff;
+}
+
+.btn-delete {
+  background-color: #ffe5e5;
+  color: #d00;
+}
+
+.btn-delete:hover {
+  background-color: #ffcccc;
+}
+
+/* Link dentro da tabela */
+.messages-table a {
+  text-decoration: none;
+  color: #4a90e2;
+  transition: color 0.2s;
+}
+
+.messages-table a:hover {
+  color: #357ab8;
+}
+
+
+/* Container principal */
+.message-form-container {
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.message-form-container h2 {
+  margin-bottom: 1rem;
+}
+
+/* Grupo de formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 0.5rem;
+  background-color: #1A1A1A;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(74,144,226,0.3);
+}
+
+/* Mensagem de erro */
+.error {
+  color: crimson;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Botões */
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/*LOGIN
+
+/* Container principal */
+.login-container {
+  max-width: 360px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 1.5rem;
+}
+
+/* Grupo de formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74,144,226,0.3);
+}
+
+/* Mensagem de erro */
+.error {
+  color: crimson;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+
+.btn-nova-mensagem {
+  margin-top: 1rem;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Botão de login */
+.btn-login {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-login:hover {
+  background-color: #357ab8;
+}
+
+/* DETAIL
+
+/* Container principal */
+.detail-container {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.detail-container h2 {
+  margin-bottom: 1rem;
+}
+
+/* Artigo de detalhe */
+.detail-article h3 {
+  margin-bottom: 0.5rem;
+  color: #4a90e2;
+}
+
+.detail-meta {
+  display: block;
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.detail-body {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  margin-top: 0.75rem;
+}
+
+/* Ações */
+.detail-actions {
+  margin-top: 1.5rem;
+}
+
+.detail-actions .btn-edit {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background-color: #4a90e2;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.detail-actions .btn-edit:hover {
+  background-color: #357ab8;
+  transform: translateY(-1px);
+}
+

@@ -1,11 +1,7 @@
-const TOKEN_KEY = 'crud_msgs_token';
+import { API_CONFIG } from "../config/api";
 
-
+const TOKEN_KEY = API_CONFIG.KEY;
+ 
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
 export const setToken = (token: string) => localStorage.setItem(TOKEN_KEY, token);
 export const clearToken = () => localStorage.removeItem(TOKEN_KEY);
-
-
-// Observação: para um teste/tarefa, localStorage é aceitável.
-// Em produção, considere: expiração/refresh, armazenamento httpOnly (via cookies),
-// proteção a XSS e estratégia de logout seguro.

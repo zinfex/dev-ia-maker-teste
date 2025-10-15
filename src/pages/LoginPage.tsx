@@ -46,6 +46,9 @@ return (
             <button type="submit" className="btn-login" disabled={login.isPending}>
             {login.isPending ? 'Entrando...' : 'Entrar'}
             </button>
+            <button type="button" className="btn-register" onClick={() => navigate('/register')}>
+            Criar conta
+            </button>
         </form>
     </div>
 );

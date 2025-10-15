@@ -12,7 +12,7 @@ export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise
     };
 
     const token = getToken();
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+    if (token) headers['Authorization'] = `${token}`;
     if (init.body && !(init.headers as any)?.['Content-Type']) headers['Content-Type'] = 'application/json';
 
     const res = await fetch(`${BASE_URL}${path}`, { ...init, headers });
@@ -28,21 +28,31 @@ export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise
 
     if (res.status === 204) return undefined as unknown as T;
 
-
     const ct = res.headers.get('content-type') || '';
     if (ct.includes('application/json')) return (await res.json()) as T;
-
 
     return (await res.text()) as unknown as T;
 }
 
 
-export type LoginResponse = { accessToken: string; tokenType: 'Bearer'; expiresIn: number };
+export type LoginResponse = { token: string };
+export type User = { id: string; username: string; password: string };
 
 
 export const api = {
     login: (body: { username: string; password: string }) =>
-    apiFetch<LoginResponse>('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
+    apiFetch<LoginResponse>('/auth/login', { 
+        method: 'POST', 
+        body: JSON.stringify(body), 
+        headers: { 'apikey': API_CONFIG.KEY } 
+    }),
+
+    createUser: (body: { username: string; password: string }) =>
+    apiFetch<User>('/auth/register', { 
+        method: 'POST', 
+        body: JSON.stringify(body), 
+        headers: { 'apikey': API_CONFIG.KEY } 
+    }),
 
     listMessages: (q: { page?: number; limit?: number; status?: string }) => {
         const params = new URLSearchParams();

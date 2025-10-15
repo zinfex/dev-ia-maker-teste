@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api, type LoginResponse } from './client';
+import { api, User, type LoginResponse } from './client';
 import type { Message, Paginated } from '../types/message';
 import { setToken } from '../utils/auth';
 
@@ -7,8 +7,14 @@ export function useLogin() {
     return useMutation<LoginResponse, unknown, { username: string; password: string }>({
         mutationFn: api.login,
         onSuccess: (data) => {
-            setToken(data.accessToken);
+            setToken(data.token);
         },
+    });
+}
+
+export function useCreateUser() {
+    return useMutation<User, unknown, { username: string; password: string }>({
+        mutationFn: api.createUser,
     });
 }
 

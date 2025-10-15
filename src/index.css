@@ -399,6 +399,16 @@ header nav a:hover {
   transition: background-color 0.2s, transform 0.1s;
 }
 
+.btn-register {
+  width: 80%;
+  margin-top: 1rem;
+  background-color: #1b1b1b;
+  color: #fff;
+  font-size: 15px;
+  padding: 6px;
+  border: none;
+}
+
 .btn-login:hover { background-color: #357ab8; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(53,122,184,.25); }
 
 /* DETAIL

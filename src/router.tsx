@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import MessagesListPage from './pages/MessagesListPage';
 import MessageDetailPage from './pages/MessageDetailPage';
 import MessageFormPage from './pages/MessageFormPage';
@@ -16,12 +17,18 @@ function Protected({ children }:{ children: JSX.Element }){
     return children;
 }
 
+function HomeRedirect(){
+    const token = getToken();
+    if (token) return <Navigate to="/messages" replace />;
+    return <Navigate to="/login" replace />;
+}
+
 export const router = createBrowserRouter([
     {
         path: '/',
         element: (
             <QueryClientProvider client={qc}>
-                <Layout><></></Layout>
+                <HomeRedirect />
             </QueryClientProvider>
         ),
         children: []
@@ -31,6 +38,14 @@ export const router = createBrowserRouter([
         element: (
             <QueryClientProvider client={qc}>
                <LoginPage />
+            </QueryClientProvider>
+        )
+    },
+    {
+        path: '/register',
+        element: (
+            <QueryClientProvider client={qc}>
+               <RegisterPage />
             </QueryClientProvider>
         )
     },

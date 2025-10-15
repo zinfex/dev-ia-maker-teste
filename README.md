@@ -36,6 +36,8 @@ npm install
 Crie um arquivo .env na raiz do projeto com
 ```json
 VITE_API_BASE_URL=http://localhost:5678/webhook
+VITE_API_KEY=crud_msgs_token
+VITE_JWT_STORAGE_KEY=crud_msgs_token
 ```
 
 ### 3️⃣ Rodar o frontend
@@ -63,4 +65,5 @@ POST   /messages
 PATCH  /messages?id={id}
 DELETE /messages?id={id}
 POST   /auth/login
+POST   /auth/register
 ```

@@ -35,9 +35,9 @@ npm install
 ### 2️⃣ Variáveis de ambiente
 Crie um arquivo .env na raiz do projeto com
 ```json
-VITE_API_BASE_URL=http://localhost:5678/webhook
-VITE_API_KEY=crud_msgs_token
-VITE_JWT_STORAGE_KEY=crud_msgs_token
+VITE_API_BASE_URL=http:"https://automation-n8n.zwlu6z.easypanel.host/webhook"
+VITE_API_KEY="crud_msgs_token"
+VITE_JWT_STORAGE_KEY="crud_msgs_token"
 ```
 
 ### 3️⃣ Rodar o frontend

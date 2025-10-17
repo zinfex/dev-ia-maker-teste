@@ -1,0 +1,1214 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "respondWith": "jwt",
+          "options": {
+            "responseCode": 200,
+            "responseHeaders": {
+              "entries": [
+                {
+                  "name": "Content-Type",
+                  "value": "={{$json.__contentType}}"
+                }
+              ]
+            }
+          }
+        },
+        "id": "498761b1-230e-40af-9e31-0d92154f7ad5",
+        "name": "Respond /auth/login",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          496,
+          32
+        ],
+        "credentials": {
+          "jwtAuth": {
+            "id": "VIpDnmsifUkT65i9",
+            "name": "JWT Auth account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "respondWith": "allIncomingItems",
+          "options": {}
+        },
+        "id": "524aa3bd-0d63-414b-a7ec-0c4bab4de2ff",
+        "name": "Respond GET /messages",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          2080,
+          -336
+        ]
+      },
+      {
+        "parameters": {
+          "options": {
+            "responseHeaders": {
+              "entries": [
+                {
+                  "name": "Content-Type",
+                  "value": "={{$json.__contentType}}"
+                },
+                {
+                  "name": "Location",
+                  "value": "={{$json.__location}}"
+                }
+              ]
+            }
+          }
+        },
+        "id": "79017622-5bd2-461c-a1f5-c1198193a278",
+        "name": "Respond POST /messages",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1936,
+          208
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## Auth",
+          "height": 816,
+          "width": 1200,
+          "color": 6
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -464,
+          -80
+        ],
+        "id": "2f78450e-65b3-413e-a85f-15837ad80a8e",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {
+          "content": "## Lista mensagens com paginação e filtro status",
+          "height": 656,
+          "width": 848
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          1456,
+          -512
+        ],
+        "id": "90ba7c6f-bcef-4bbd-a679-5ecdc80013f1",
+        "name": "Sticky Note2"
+      },
+      {
+        "parameters": {
+          "tableId": "messages",
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": "title",
+                "fieldValue": "={{ $('/messages').item.json.body.title }}"
+              },
+              {
+                "fieldId": "status",
+                "fieldValue": "={{ $('/messages').item.json.body.status }}"
+              },
+              {
+                "fieldId": "body",
+                "fieldValue": "={{ $('/messages').item.json.body.body }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          1744,
+          208
+        ],
+        "id": "cae87efd-44cf-43db-a612-2b60bfec4f3f",
+        "name": "Create a row",
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "delete",
+          "tableId": "messages",
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "id",
+                "condition": "eq",
+                "keyValue": "={{ $('/messages').item.json.query.id }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          1744,
+          448
+        ],
+        "id": "432171fb-2ea6-4999-bad5-72efa11b99a8",
+        "name": "Delete a row",
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "tableId": "messages",
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "id",
+                "condition": "eq",
+                "keyValue": "={{ $('/messages').item.json.query.id }}"
+              }
+            ]
+          },
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": "title",
+                "fieldValue": "={{ $('/messages').item.json.body.title }}"
+              },
+              {
+                "fieldId": "status",
+                "fieldValue": "={{ $('/messages').item.json.body.status }}"
+              },
+              {
+                "fieldId": "body",
+                "fieldValue": "={{ $('/messages').item.json.body.body }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          1744,
+          688
+        ],
+        "id": "1cf76ca4-f27b-45d9-97f0-18da50a8c51f",
+        "name": "Update a row",
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "get",
+          "tableId": "messages",
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "id",
+                "keyValue": "={{ $('/messages').item.json.query.id }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          1552,
+          -64
+        ],
+        "id": "ff0c8c37-1d67-4904-b0db-ba6a2a8f7727",
+        "name": "Get a row1",
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "getAll",
+          "tableId": "messages",
+          "limit": "={{ $('/messages').item.json.query.limit }}",
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "status",
+                "condition": "eq",
+                "keyValue": "={{ $('/messages').item.json.query.status }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          1808,
+          -256
+        ],
+        "id": "60bfd0c2-6df2-42ec-9ec0-b1fe15e4df0b",
+        "name": "Get many rows",
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "cb6e07be-312d-40d9-a3c1-03e1dcec42d4",
+                "leftValue": "={{ $('/messages').item.query.status }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "notExists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1552,
+          -336
+        ],
+        "id": "163e3f06-af5f-44fa-8fa9-9937824f386b",
+        "name": "If todos"
+      },
+      {
+        "parameters": {
+          "operation": "getAll",
+          "tableId": "messages",
+          "limit": "={{ $('/messages').item.json.query.limit }}"
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          1808,
+          -416
+        ],
+        "id": "c77c3b45-7843-44e1-b324-eef4c8d2c995",
+        "name": "Get many rows1",
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "content": "## Cria uma nova mensagem",
+          "height": 240,
+          "width": 672,
+          "color": 4
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1456,
+          144
+        ],
+        "typeVersion": 1,
+        "id": "319e0f26-b251-4ae2-a0d8-d6a32be56124",
+        "name": "Sticky Note3"
+      },
+      {
+        "parameters": {
+          "content": "## Deleta uma mensagem",
+          "height": 224,
+          "width": 672,
+          "color": 3
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1456,
+          384
+        ],
+        "typeVersion": 1,
+        "id": "72c162b4-1b56-4397-8ab9-635448e3cfda",
+        "name": "Sticky Note4"
+      },
+      {
+        "parameters": {
+          "content": "## Atualiza uma mensagem",
+          "height": 256,
+          "width": 672,
+          "color": 5
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1456,
+          608
+        ],
+        "typeVersion": 1,
+        "id": "c9d7bfb4-01a7-48b4-854d-7f57abd0f766",
+        "name": "Sticky Note6"
+      },
+      {
+        "parameters": {
+          "multipleMethods": true,
+          "httpMethod": [
+            "GET",
+            "POST",
+            "DELETE",
+            "PATCH"
+          ],
+          "path": "/messages",
+          "responseMode": "responseNode",
+          "options": {
+            "allowedOrigins": "*",
+            "responseHeaders": {
+              "entries": [
+                {
+                  "name": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ]
+            }
+          }
+        },
+        "id": "ad8f960c-1bcb-497e-949e-a050c96d1107",
+        "name": "/messages",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          864,
+          192
+        ],
+        "webhookId": "54bc396d-810c-4bf5-bbb3-c60d2a6dc845"
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "/auth/login",
+          "authentication": "headerAuth",
+          "responseMode": "responseNode",
+          "options": {
+            "allowedOrigins": "*"
+          }
+        },
+        "id": "472abc4e-896a-4693-b45c-296dfd59cc49",
+        "name": "/auth/login",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          -384,
+          112
+        ],
+        "webhookId": "5a7756f6-3df6-4d51-baee-8ca23b84063d",
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "JDKOFchcVlaimodZ",
+            "name": "Header Auth account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "respondWith": "json",
+          "responseBody": "={\n  title: 'Unauthorized',\n  status: 401,\n  detail: 'Usuário ou senha inválidos'\n}",
+          "options": {}
+        },
+        "id": "d92274e8-67f8-4793-bd15-e588c08c7d9b",
+        "name": "Incorreto",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          336,
+          192
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "62082173-c5a9-4782-809f-a7f1baa4f101",
+                "leftValue": "={{ $('/messages').item.json.query.id }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "notExists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1280,
+          -192
+        ],
+        "id": "5fc4db8e-a1c4-4985-913a-c7d7ebfe186b",
+        "name": "If"
+      },
+      {
+        "parameters": {
+          "respondWith": "text",
+          "responseBody": "Conta criada com sucesso",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.4,
+        "position": [
+          528,
+          400
+        ],
+        "id": "f385f5f5-235a-420f-b069-2acd94ba2de4",
+        "name": "Respond to Webhook"
+      },
+      {
+        "parameters": {
+          "operation": "get",
+          "tableId": "user",
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "login",
+                "keyValue": "={{ $('/auth/login').item.json.body.username }}"
+              },
+              {
+                "keyName": "senha",
+                "keyValue": "={{ $('/auth/login').item.json.body.password }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          -48,
+          112
+        ],
+        "id": "023fd975-9520-4ae8-9878-fa928cb64fb1",
+        "name": "Procura",
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "tableId": "user",
+          "fieldsUi": {
+            "fieldValues": [
+              {
+                "fieldId": "login",
+                "fieldValue": "={{ $('Edit Fields2').item.json.login }}"
+              },
+              {
+                "fieldId": "senha",
+                "fieldValue": "={{ $('Edit Fields2').item.json.senha }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          336,
+          400
+        ],
+        "id": "279bc4cf-2b4a-4802-a25c-154abcb3945b",
+        "name": "Criar conta",
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "get",
+          "tableId": "user",
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "login",
+                "keyValue": "={{ $json.login }}"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.supabase",
+        "typeVersion": 1,
+        "position": [
+          -32,
+          416
+        ],
+        "id": "74ed0cd4-1478-438b-bc31-b53bccfcd1a3",
+        "name": "Procurar se existe",
+        "alwaysOutputData": true,
+        "credentials": {
+          "supabaseApi": {
+            "id": "LSx8Ch9JwZffRv9R",
+            "name": "supabase teste"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "/auth/register",
+          "responseMode": "responseNode",
+          "options": {
+            "allowedOrigins": "*"
+          }
+        },
+        "id": "1b3cdc33-831d-4664-b6d2-92ddba296b64",
+        "name": "/auth/register",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          -384,
+          416
+        ],
+        "webhookId": "5a7756f6-3df6-4d51-baee-8ca23b84063d"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "7474068b-7ad7-425d-8a71-97c5c217900c",
+                "name": "user",
+                "value": "={{ $json.body.username }}",
+                "type": "string"
+              },
+              {
+                "id": "cff4961d-f6d5-4307-86fb-4873822ac624",
+                "name": "password",
+                "value": "={{ $json.body.password }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -208,
+          112
+        ],
+        "id": "fec0ce1c-49b9-42fc-9dc6-975dd8aff34c",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "claims": {},
+          "options": {}
+        },
+        "type": "n8n-nodes-base.jwt",
+        "typeVersion": 1,
+        "position": [
+          336,
+          32
+        ],
+        "id": "952f7cf4-e831-4671-b6f6-3f6f04281ed1",
+        "name": "JWT",
+        "credentials": {
+          "jwtAuth": {
+            "id": "VIpDnmsifUkT65i9",
+            "name": "JWT Auth account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "verify",
+          "token": "={{ $json.headers.authorization }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.jwt",
+        "typeVersion": 1,
+        "position": [
+          1104,
+          -192
+        ],
+        "id": "589d1f91-78fa-493c-802b-7fb0c09f8694",
+        "name": "JWT1",
+        "credentials": {
+          "jwtAuth": {
+            "id": "VIpDnmsifUkT65i9",
+            "name": "JWT Auth account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "verify",
+          "token": "={{ $json.headers.authorization }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.jwt",
+        "typeVersion": 1,
+        "position": [
+          1536,
+          208
+        ],
+        "id": "a093dea7-9b22-48ce-bcba-572a34a6e40b",
+        "name": "JWT2",
+        "credentials": {
+          "jwtAuth": {
+            "id": "VIpDnmsifUkT65i9",
+            "name": "JWT Auth account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "verify",
+          "token": "={{ $json.headers.authorization }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.jwt",
+        "typeVersion": 1,
+        "position": [
+          1536,
+          448
+        ],
+        "id": "a278ea1a-5f74-4e94-96b4-ab02d0c511f2",
+        "name": "JWT3",
+        "credentials": {
+          "jwtAuth": {
+            "id": "VIpDnmsifUkT65i9",
+            "name": "JWT Auth account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "verify",
+          "token": "={{ $json.headers.authorization }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.jwt",
+        "typeVersion": 1,
+        "position": [
+          1536,
+          688
+        ],
+        "id": "7d2d4353-8cf0-4fc5-a58e-956a37adda4d",
+        "name": "JWT4",
+        "credentials": {
+          "jwtAuth": {
+            "id": "VIpDnmsifUkT65i9",
+            "name": "JWT Auth account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "7474068b-7ad7-425d-8a71-97c5c217900c",
+                "name": "login",
+                "value": "={{ $json.body.username }}",
+                "type": "string"
+              },
+              {
+                "id": "cff4961d-f6d5-4307-86fb-4873822ac624",
+                "name": "senha",
+                "value": "={{ $json.body.password }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -208,
+          416
+        ],
+        "id": "6ca4a724-c78e-4cdc-a420-b0e061f600e9",
+        "name": "Edit Fields2"
+      },
+      {
+        "parameters": {
+          "respondWith": "text",
+          "responseBody": "Esse login já existe",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.4,
+        "position": [
+          336,
+          592
+        ],
+        "id": "057e655f-66cd-4a17-8b28-af60c3c14636",
+        "name": "Respond to Webhook1"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "956ff4d4-a4de-43ad-98da-c6702493ce89",
+                "leftValue": "={{ $json.id }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "number",
+                  "operation": "notExists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          144,
+          416
+        ],
+        "id": "ca9cd003-5126-433a-b8eb-0542ac261728",
+        "name": "Não existe1"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "956ff4d4-a4de-43ad-98da-c6702493ce89",
+                "leftValue": "={{ $json.id }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "number",
+                  "operation": "exists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          128,
+          112
+        ],
+        "id": "8e6038d3-330d-4ec1-853a-5ff7ebf175ac",
+        "name": "existe"
+      },
+      {
+        "parameters": {
+          "options": {
+            "responseHeaders": {
+              "entries": [
+                {
+                  "name": "Content-Type",
+                  "value": "={{$json.__contentType}}"
+                }
+              ]
+            }
+          }
+        },
+        "id": "ce3d9cf0-c179-41b5-bf45-73247c9bce34",
+        "name": "Respond GET /messages?id",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1792,
+          -64
+        ]
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "id": "232a711a-fee8-4908-8404-edf794a49c87",
+        "name": "Respond DELETE /messages?id",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1936,
+          448
+        ]
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "id": "00e325a9-1d44-44d4-bfab-cdd12126558a",
+        "name": "Respond PATCH /messages?id",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1936,
+          688
+        ]
+      }
+    ],
+    "connections": {
+      "Create a row": {
+        "main": [
+          [
+            {
+              "node": "Respond POST /messages",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Delete a row": {
+        "main": [
+          [
+            {
+              "node": "Respond DELETE /messages?id",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update a row": {
+        "main": [
+          [
+            {
+              "node": "Respond PATCH /messages?id",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get a row1": {
+        "main": [
+          [
+            {
+              "node": "Respond GET /messages?id",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many rows": {
+        "main": [
+          [
+            {
+              "node": "Respond GET /messages",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If todos": {
+        "main": [
+          [
+            {
+              "node": "Get many rows1",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Get many rows",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many rows1": {
+        "main": [
+          [
+            {
+              "node": "Respond GET /messages",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "/messages": {
+        "main": [
+          [
+            {
+              "node": "JWT1",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "JWT2",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "JWT3",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "JWT4",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "/auth/login": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If": {
+        "main": [
+          [
+            {
+              "node": "If todos",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Get a row1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Procura": {
+        "main": [
+          [
+            {
+              "node": "existe",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Criar conta": {
+        "main": [
+          [
+            {
+              "node": "Respond to Webhook",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Procurar se existe": {
+        "main": [
+          [
+            {
+              "node": "Não existe1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "/auth/register": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "Procura",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "JWT": {
+        "main": [
+          [
+            {
+              "node": "Respond /auth/login",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "JWT1": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "JWT2": {
+        "main": [
+          [
+            {
+              "node": "Create a row",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "JWT3": {
+        "main": [
+          [
+            {
+              "node": "Delete a row",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "JWT4": {
+        "main": [
+          [
+            {
+              "node": "Update a row",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields2": {
+        "main": [
+          [
+            {
+              "node": "Procurar se existe",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Não existe1": {
+        "main": [
+          [
+            {
+              "node": "Criar conta",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Respond to Webhook1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "existe": {
+        "main": [
+          [
+            {
+              "node": "JWT",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Incorreto",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "66a50d6d1bf3c1de847960f4b76be46aa72f85f5689ac3e315a222a3f1985a48"
+    }
+  }

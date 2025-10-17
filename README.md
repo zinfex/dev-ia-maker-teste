@@ -67,3 +67,6 @@ DELETE /messages?id={id}
 POST   /auth/login
 POST   /auth/register
 ```
+
+### N8N
+Arquivo /n8n.json -> Fluxo do N8N que está sendo utilizado para o backend

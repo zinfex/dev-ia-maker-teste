@@ -23,6 +23,10 @@
   --shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
 }
 
+.description {
+  color: rgb(67, 67, 1);
+}
+
 a {
   font-weight: 500;
   color: #646cff;

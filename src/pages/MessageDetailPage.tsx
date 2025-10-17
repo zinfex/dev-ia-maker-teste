@@ -23,6 +23,10 @@ export default function MessageDetailPage(){
                     Status: {data.status} | Atualizado: {new Date(data.updated_at).toLocaleString()}
                 </small>
                 <p className="detail-body">{data.body}</p>
+                <div className="description">
+                    <p>Descrição</p>
+                    {data.description}
+                </div>
                 <div className="detail-actions">
                     <Link className="btn-edit" to={`/messages/${data.id}/edit`}>
                         Editar
